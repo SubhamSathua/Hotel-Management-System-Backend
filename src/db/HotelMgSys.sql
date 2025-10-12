@@ -16,4 +16,3 @@ describe table users;
 
 -- Drop
 drop table users;
-
