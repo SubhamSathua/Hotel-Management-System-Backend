@@ -1,4 +1,4 @@
-package org.hotelms.backend;
+package org.hotelms.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
