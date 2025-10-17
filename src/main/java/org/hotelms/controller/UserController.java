@@ -2,6 +2,8 @@ package org.hotelms.controller;
 
 import java.util.*;
 
+import org.hotelms.entity.LoginRequest;
+import org.hotelms.entity.LoginResponse;
 import org.hotelms.entity.User;
 import org.hotelms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,8 @@ public class UserController {
 
     // ✅ LOGIN API
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Map<String, String> body) {
-        String email = body.get("email");
-        String password = body.get("password");
-        return userService.login(email, password);
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return userService.login(request.getEmail(), request.getPassword());
     }
 
     // ✅ CRUD APIs (Optional)

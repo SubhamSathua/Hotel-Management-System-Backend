@@ -38,7 +38,6 @@ public class UserProfile {
         this.created_at = LocalDateTime.now();
     }
 
-    // --- Getters & Setters ---
     public int getProfile_id() { return profile_id; }
     public void setProfile_id(int profile_id) { this.profile_id = profile_id; }
 

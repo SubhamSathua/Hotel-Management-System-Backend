@@ -39,7 +39,6 @@ public class User {
         this.updated_at = LocalDateTime.now();
     }
 
-    // --- Getters & Setters ---
     public int getUser_id() { return user_id; }
     public void setUser_id(int user_id) { this.user_id = user_id; }
 

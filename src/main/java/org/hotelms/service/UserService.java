@@ -3,6 +3,7 @@ package org.hotelms.service;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import org.hotelms.entity.LoginResponse;
 import org.hotelms.entity.User;
 import org.hotelms.entity.UserProfile;
 import org.hotelms.repository.UserProfileRepository;
@@ -19,64 +20,57 @@ public class UserService {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-    // Check if a user exists by email
     public boolean existsByEmail(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 
 
-    // ✅ LOGIN SERVICE
-    public Map<String, String> login(String email, String password) {
-        Map<String, String> res = new HashMap<>();
+    public LoginResponse login(String email, String password) {
+        LoginResponse res = new LoginResponse();
         Optional<User> userOpt = userRepository.findByEmail(email);
 
         if (userOpt.isEmpty()) {
-            res.put("status", "error");
-            res.put("message", "User not found");
+            res.setStatus("error");
+            res.setMessage("User not found");
             return res;
         }
 
         User user = userOpt.get();
 
         if (!user.getPassword().equals(password)) {
-            res.put("status", "error");
-            res.put("message", "Invalid password");
+            res.setStatus("error");
+            res.setMessage("Invalid password");
             return res;
         }
 
         if (!user.getStatus().equalsIgnoreCase("ACTIVE")) {
-            res.put("status", "error");
-            res.put("message", "Account inactive");
+            res.setStatus("error");
+            res.setMessage("Account inactive");
             return res;
         }
 
-        res.put("status", "success");
-        res.put("role", user.getRole());
-        res.put("message", "Login successful");
+        res.setStatus("success");
+        res.setMessage("Login successful");
+        res.setRole(user.getRole());
         return res;
     }
 
-    // ✅ REGISTRATION SERVICE
     public Map<String, String> registerUser(User user, String fullName) {
         Map<String, String> res = new HashMap<>();
 
-        // Check if email already exists
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             res.put("status", "error");
             res.put("message", "Email already registered");
             return res;
         }
 
-        // Set default role and status
         user.setRole("CUSTOMER");
         user.setStatus("ACTIVE");
         user.setCreated_at(LocalDateTime.now());
         user.setUpdated_at(LocalDateTime.now());
 
-        // Save User
         userRepository.save(user);
 
-        // Save UserProfile
         UserProfile profile = new UserProfile();
         profile.setUser(user);
         profile.setFull_name(fullName);
@@ -88,7 +82,6 @@ public class UserService {
         return res;
     }
 
-    // ✅ CRUD Methods
     public String addUser(User user) {
         userRepository.save(user);
         return "User added successfully!";
