@@ -26,3 +26,19 @@ This is the backend component of a full-stack Hotel Management System that enabl
 
 ## 📁 Project Structure
 
+src/
+├── main/
+│ ├── java/
+│ │ └── org.hotelms/
+│ │ ├── controller/ # REST API endpoints
+│ │ │ ├── LoginController.java
+│ │ │ └── UserController.java
+│ │ ├── entity/ # JPA entities (database models)
+│ │ ├── repository/ # Database access layer
+│ │ │ ├── UserRepository.java
+│ │ │ └── UserProfileRepository.java
+│ │ └── service/ # Business logic layer
+│ └── resources/
+│ └── application.properties # Configuration file
+└── test/ # Unit and integration tests
+
