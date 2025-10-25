@@ -1,4 +1,8 @@
 package org.hotelms.entity;
 
-public class RoomStatus {
+public enum RoomStatus {
+    AVAILABLE,
+    OCCUPIED,
+    UNDER_MAINTENANCE,
+    RESERVED
 }
